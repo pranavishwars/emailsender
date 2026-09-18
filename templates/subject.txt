@@ -1,0 +1,1 @@
+Sponsorship Opportunity: {{event_name}} Hackathon

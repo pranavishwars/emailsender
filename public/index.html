@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Code4Change 4.0 — Sponsorship Mailer</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+      background: #f4f6f9;
+      color: #1a1a2e;
+      min-height: 100vh;
+      padding: 24px 16px;
+    }
+
+    .container {
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    header {
+      margin-bottom: 24px;
+    }
+
+    header h1 {
+      font-size: 22px;
+      font-weight: 700;
+      color: #1a1a2e;
+    }
+
+    header p {
+      font-size: 13px;
+      color: #666;
+      margin-top: 4px;
+    }
+
+    /* Banners */
+    .banner {
+      border-radius: 6px;
+      padding: 10px 14px;
+      font-size: 13px;
+      margin-bottom: 16px;
+      display: none;
+    }
+    .banner.error { background: #fff0f0; border: 1px solid #f5c6c6; color: #c0392b; }
+    .banner.warning { background: #fff8e1; border: 1px solid #ffe082; color: #7d5a00; }
+    .banner.success { background: #f0fff4; border: 1px solid #b2dfdb; color: #1b5e20; }
+    .banner.visible { display: block; }
+
+    /* Card */
+    .card {
+      background: #fff;
+      border-radius: 10px;
+      border: 1px solid #e4e8ef;
+      padding: 24px;
+      margin-bottom: 20px;
+    }
+
+    .card h2 {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      color: #333;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 8px;
+    }
+
+    /* Form fields */
+    .field { margin-bottom: 14px; }
+
+    label {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      color: #555;
+      margin-bottom: 5px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    textarea {
+      width: 100%;
+      padding: 9px 12px;
+      border: 1px solid #d1d9e0;
+      border-radius: 6px;
+      font-size: 14px;
+      color: #1a1a2e;
+      background: #fafbfc;
+      outline: none;
+      transition: border-color 0.15s;
+      font-family: inherit;
+    }
+
+    input:focus, textarea:focus {
+      border-color: #4a6cf7;
+      background: #fff;
+    }
+
+    .field-hint {
+      font-size: 11px;
+      color: #888;
+      margin-top: 4px;
+    }
+
+    .row-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    textarea { resize: vertical; min-height: 130px; }
+
+    .counter-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 5px;
+    }
+
+    #address-counter {
+      font-size: 12px;
+      color: #888;
+    }
+
+    #address-counter.valid { color: #2e7d32; font-weight: 600; }
+    #address-counter.warn  { color: #c0392b; }
+
+    /* Send button */
+    #send-btn {
+      width: 100%;
+      padding: 12px;
+      background: #4a6cf7;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.15s, opacity 0.15s;
+      margin-top: 4px;
+    }
+
+    #send-btn:hover:not(:disabled) { background: #3a5ce0; }
+    #send-btn:disabled { opacity: 0.55; cursor: not-allowed; }
+
+    /* Preview toggle */
+    #preview-toggle {
+      font-size: 12px;
+      color: #4a6cf7;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 0;
+      text-decoration: underline;
+    }
+
+    #preview-section { display: none; margin-top: 16px; }
+    #preview-section.open { display: block; }
+
+    #preview-subject {
+      font-size: 13px;
+      font-weight: 600;
+      background: #f4f6f9;
+      padding: 8px 12px;
+      border-radius: 6px;
+      margin-bottom: 8px;
+      color: #333;
+    }
+
+    #preview-text {
+      font-size: 13px;
+      background: #f4f6f9;
+      padding: 10px 12px;
+      border-radius: 6px;
+      white-space: pre-wrap;
+      color: #444;
+      line-height: 1.5;
+      max-height: 260px;
+      overflow-y: auto;
+    }
+
+    /* Results table */
+    #results-section { display: none; }
+    #results-section.visible { display: block; }
+
+    .status-summary {
+      font-size: 13px;
+      color: #555;
+      margin-bottom: 12px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    th {
+      text-align: left;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      color: #888;
+      padding: 6px 10px;
+      border-bottom: 2px solid #eee;
+    }
+
+    td {
+      padding: 8px 10px;
+      border-bottom: 1px solid #f0f0f0;
+      vertical-align: top;
+      word-break: break-all;
+    }
+
+    tr:last-child td { border-bottom: none; }
+
+    .status-badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+
+    .badge-pending   { background: #f0f4ff; color: #4a6cf7; }
+    .badge-sending   { background: #fff8e1; color: #f59f00; }
+    .badge-sent      { background: #f0fff4; color: #2e7d32; }
+    .badge-failed    { background: #fff0f0; color: #c0392b; }
+    .badge-uncertain { background: #fff3e0; color: #e65100; }
+
+    .note-uncertain { font-size: 11px; color: #e65100; margin-top: 3px; }
+    .note-error { font-size: 11px; color: #c0392b; margin-top: 3px; font-family: monospace; }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <h1>Code4Change 4.0 — Sponsorship Mailer</h1>
+    <p>IEEE-SSIT, VIT Vellore &middot; Send individual cold-mail to sponsors</p>
+  </header>
+
+  <!-- SMTP / server health warning -->
+  <div id="smtp-banner" class="banner warning">
+    ⚠️ Server is not responding correctly. Check that the server is running and the config is valid.
+  </div>
+
+  <!-- General error/success banners -->
+  <div id="error-banner" class="banner error"></div>
+  <div id="success-banner" class="banner success"></div>
+
+  <!-- Credentials card -->
+  <div class="card">
+    <h2>Your Gmail Credentials</h2>
+    <div class="field">
+      <label for="gmail-user-input">Gmail Address</label>
+      <input type="email" id="gmail-user-input" placeholder="yourname@gmail.com" autocomplete="off">
+    </div>
+    <div class="field">
+      <label for="app-password-input">Google App Password</label>
+      <input type="password" id="app-password-input" placeholder="xxxx xxxx xxxx xxxx" autocomplete="off" maxlength="19">
+      <div class="field-hint">
+        16-character App Password from <strong>Google Account → Security → App Passwords</strong>.
+        Spaces are stripped automatically. Requires 2-Step Verification to be enabled.
+      </div>
+    </div>
+    <div class="field">
+      <label for="access-key-input">Server Access Key</label>
+      <input type="password" id="access-key-input" placeholder="Access key set by the server admin" autocomplete="off">
+      <div class="field-hint">Set as ACCESS_KEY in the server's .env file.</div>
+    </div>
+  </div>
+
+  <!-- Preview card -->
+  <div class="card">
+    <h2>Email Preview
+      <button type="button" id="preview-toggle" style="float:right; margin-top:2px;">Show preview</button>
+    </h2>
+    <div id="preview-section">
+      <div id="preview-subject">Loading subject…</div>
+      <div id="preview-attachment" style="display:none; font-size:12px; color:#2e7d32; background:#f0fff4; border:1px solid #b2dfdb; border-radius:6px; padding:6px 10px; margin-bottom:8px; font-weight:600;"></div>
+      <div id="preview-text">Loading body…</div>
+    </div>
+  </div>
+
+  <!-- Recipients card -->
+  <div class="card">
+    <h2>Recipients</h2>
+    <div class="field">
+      <label for="email-input">Recipient Emails</label>
+      <textarea id="email-input" placeholder="Paste emails separated by commas, semicolons, or new lines&#10;&#10;e.g.&#10;hr@company1.com&#10;contact@company2.com, sponsorship@company3.in"></textarea>
+      <div class="counter-row">
+        <span id="address-counter">0 valid unique addresses</span>
+      </div>
+    </div>
+    <button type="button" id="send-btn">Send Emails</button>
+  </div>
+
+  <!-- Results card -->
+  <div class="card" id="results-section">
+    <h2>Job Results</h2>
+    <div class="status-summary" id="job-summary"></div>
+    <table>
+      <thead>
+        <tr>
+          <th style="width:42%">Email</th>
+          <th style="width:14%">Status</th>
+          <th style="width:8%">Tries</th>
+          <th>Details</th>
+        </tr>
+      </thead>
+      <tbody id="results-tbody"></tbody>
+    </table>
+    <div style="margin-top: 12px;">
+      <a id="csv-link" href="#" style="font-size:12px; color:#4a6cf7; text-decoration:underline; display:none;">
+        ↓ Download CSV report
+      </a>
+    </div>
+  </div>
+</div>
+
+<script src="/app.js"></script>
+
+</body>
+</html>
+

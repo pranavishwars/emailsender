@@ -1,0 +1,25 @@
+Greetings,
+
+{{chapter_name}} invites your organization to sponsor {{event_name}}, the 4th edition of our flagship student hackathon.
+
+The event will take place at the largest venue on our campus of 40,000+ students, with 1,500+ expected participants. Past editions of Code4Change have seen a participation of 3,000 attendees, distributed over INR 4 lakhs in prizes and generated nearly 1 million unique online impressions. Our chapter consistently delivers high scale events, including TEA_TALK (Technical, Entrepreneurial, and Aspirational Talk), a podcast-style event with over 1,600 attendees that featured Striver, a guest educator with over 1 million YouTube subscribers.
+
+Sponsorship provides direct value to your organization:
+
+    On-Ground Engagement: A dedicated speaker slot to host presentations, act as a panelist, and interact directly with participants during the event.
+
+    Brand Visibility: Placement of standees and logos across the physical venue and all digital marketing materials.
+
+    Product Integration: Present custom problem statements or API challenges for students to solve.
+
+    Merchandise Distribution: Direct distribution of company merchandise to a tech forward audience.
+
+The attached brochure details our sponsorship tiers. Please let me know a time for a brief call to discuss this opportunity.
+
+Regards,
+Team C4C
+{{chapter_short_name}}
+VIT - Vellore
+
+Disclaimer:
+This message was sent from Vellore Institute of Technology. The contents of this email may contain legally protected confidential or privileged information of "Vellore Institute of Technology". If you are not the intended recipient, you should not disseminate, distribute or copy this e-mail. Please notify the sender immediately and destroy all copies of this message and any attachments. If you have received this email in error, please promptly notify the sender by reply email and delete the original email and any backup copies without reading them.
